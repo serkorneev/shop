@@ -1,4 +1,4 @@
-package shop;
+package com.griddynamics.devschool.shop;
 
 import java.util.ArrayList;
 

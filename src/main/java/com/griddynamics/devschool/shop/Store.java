@@ -1,4 +1,4 @@
-package shop;
+package com.griddynamics.devschool.shop;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -83,7 +83,7 @@ public class Store {
             if (item.getName().equals(itemName)) {
                 user.getCart().add(item);
                 System.out.println("Item " + itemName + " was added.");
-                
+
                 return;
             }
         }

@@ -1,4 +1,4 @@
-package shop;
+package com.griddynamics.devschool.shop;
 
 /**
  * @author Sergey Korneev

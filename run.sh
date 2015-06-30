@@ -1,3 +1,1 @@
-mkdir -p out
-javac -sourcepath ./src -d out src/shop/Store.java
-java -classpath ./out shop.Store
+java -jar ./target/my-shop-1.0.0.jar

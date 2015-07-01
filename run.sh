@@ -1,1 +1,1 @@
-java -jar ./target/my-shop-1.0.0.jar
+java -jar ./target/my-shop-1.1.0.jar

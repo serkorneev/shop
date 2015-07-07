@@ -1,10 +1,17 @@
 package com.griddynamics.devschool.shop;
 
+import javax.xml.bind.annotation.*;
+
 /**
  * @author Sergey Korneev
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Item {
+    @XmlElement(name = "name")
     private String name;
+
+    @XmlElement(name = "price")
     private int price;
 
     /**

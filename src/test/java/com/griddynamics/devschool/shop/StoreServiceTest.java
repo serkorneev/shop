@@ -110,7 +110,15 @@ public class StoreServiceTest extends AbstractConsoleTest {
 
         String[] expected = {
                 "Welcome! Enter \"?\" for help",
-                "TestItem $1.0",
+                "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>",
+                "<store>",
+                "    <items>",
+                "        <item>",
+                "            <name>TestItem</name>",
+                "            <price>1</price>",
+                "        </item>",
+                "    </items>",
+                "</store>",
                 "Goodbye!"
         };
         assertArrayEquals(expected, getSystemOutContent());

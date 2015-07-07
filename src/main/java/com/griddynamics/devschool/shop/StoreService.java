@@ -3,6 +3,9 @@ package com.griddynamics.devschool.shop;
 import com.griddynamics.devschool.shop.exception.AccessDeniedException;
 import com.griddynamics.devschool.shop.exception.NotFoundException;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
 import java.util.Scanner;
 
 /**
@@ -32,8 +35,13 @@ public class StoreService {
                 break;
 
             case "list":
-                for (Item item: store.getItems()) {
-                    System.out.println(item.getName() + " $" + item.getPrice());
+                try {
+                    JAXBContext context = JAXBContext.newInstance(Store.class);
+                    Marshaller marshaller = context.createMarshaller();
+                    marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+                    marshaller.marshal(store, System.out);
+                } catch (JAXBException e) {
+                    e.printStackTrace();
                 }
                 break;
 

@@ -5,11 +5,14 @@ import com.griddynamics.devschool.shop.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
  * @author Sergey Korneev
  */
+@XmlRootElement
+@XmlAccessorType(XmlAccessType.NONE)
 public class Store {
     private static final Logger logger = LoggerFactory.getLogger(Store.class);
     private ArrayList<Item> items = new ArrayList<>();
@@ -56,6 +59,8 @@ public class Store {
         throw new NotFoundException();
     }
 
+    @XmlElement(name = "item", type = Item.class)
+    @XmlElementWrapper(name = "items")
     public ArrayList<Item> getItems() {
         if (user == null) {
             return items;

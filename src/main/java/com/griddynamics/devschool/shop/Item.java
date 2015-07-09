@@ -45,4 +45,8 @@ public class Item {
     public String toString() {
         return this.name + "-$" + this.price;
     }
+
+    public boolean equals(Object obj) {
+        return obj instanceof Item && ((Item) obj).getName().equals(this.getName());
+    }
 }

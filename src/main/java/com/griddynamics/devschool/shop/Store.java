@@ -18,7 +18,8 @@ public class Store {
     private ArrayList<Item> items = new ArrayList<>();
     private User user;
 
-    public Store() {
+    public Store(User user) {
+        this.user = user;
         items.add(createItem("Brand1", 10));
         items.add(createItem("Brand2", 20));
         items.add(createItem("Brand3", 30));
@@ -31,13 +32,6 @@ public class Store {
         item.setPrice(price);
 
         return item;
-    }
-
-    public void registration(String name, String email) {
-        logger.debug("Register user with name \"{}\" and email \"{}\"", name, email);
-        user = new User();
-        user.setName(name);
-        user.setEmail(email);
     }
 
     public void buy(String itemName) throws AccessDeniedException, NotFoundException {

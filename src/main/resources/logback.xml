@@ -15,7 +15,7 @@
         </filter>
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ch.qos.logback.classic.html.HTMLLayout">
-                <pattern>%relative%thread%level%logger%msg</pattern>
+                <pattern>%relative%thread%X{sessionId}%level%logger%msg</pattern>
             </layout>
         </encoder>
         <file>log.html</file>
@@ -26,7 +26,7 @@
             <level>INFO</level>
         </filter>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger{0} - %msg%n</Pattern>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %X{sessionId} %logger{0} - %msg%n</Pattern>
         </encoder>
     </appender>
 

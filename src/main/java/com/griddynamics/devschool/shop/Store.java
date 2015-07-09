@@ -18,6 +18,10 @@ public class Store {
     private ArrayList<Item> items = new ArrayList<>();
     private User user;
 
+    public Store() {
+        this(null);
+    }
+
     public Store(User user) {
         this.user = user;
         items.add(createItem("Brand1", 10));

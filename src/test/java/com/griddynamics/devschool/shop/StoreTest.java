@@ -1,56 +1,58 @@
 package com.griddynamics.devschool.shop;
 
+import com.griddynamics.devschool.shop.entity.Item;
+import com.griddynamics.devschool.shop.entity.User;
 import com.griddynamics.devschool.shop.exception.AccessDeniedException;
 import com.griddynamics.devschool.shop.exception.NotFoundException;
+import com.griddynamics.devschool.shop.repository.ItemRepository;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
-import static org.junit.Assert.*;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Sergey Korneev
  */
 public class StoreTest {
+    private Store store;
+    private ItemRepository repository;
+
+    @Before
+    public void setUp() {
+        repository = mock(ItemRepository.class);
+        store = new Store();
+        store.setRepository(repository);
+    }
+
     @Test(expected = AccessDeniedException.class)
-    public void testBuyWithoutRegistration() throws Exception {
-        Store store = new Store(null);
-        store.buy("Some item name");
+    public void buyWithoutRegistration() throws Exception {
+        store.buy("Some item name", null);
+    }
+
+    @Test
+    public void buy() throws Exception {
+        when(repository.findByName("ItemName")).thenReturn(new Item());
+        store.buy("ItemName", new User());
+        verify(repository).findByName("ItemName");
     }
 
     @Test(expected = NotFoundException.class)
-    public void testBuyNotExistItem() throws Exception {
-        Store store = new Store(new User());
-        store.buy("ItemName not exist");
+    public void buyBoughtItem() throws Exception {
+        Item item = new Item();
+        item.setName("ItemName");
+        User user = new User();
+        user.getCart().add(item);
+        when(repository.findByName("ItemName")).thenReturn(item);
+        store.buy("ItemName", user);
     }
 
     @Test
-    public void testGetItems() throws Exception {
-        Store store = new Store(null);
-        ArrayList<Item> items = store.getItems();
+    public void getItems() throws Exception {
+        store.getItems(null);
+        verify(repository).findAll(null);
 
-        assertEquals(4, items.size());
-        assertItem("Brand1", 10, items.get(0));
-        assertItem("Brand2", 20, items.get(1));
-        assertItem("Brand3", 30, items.get(2));
-        assertItem("Brand4", 40, items.get(3));
-    }
-
-    @Test
-    public void testGetItemsWithoutBought() throws Exception {
-        Store store = new Store(new User());
-        store.buy("Brand1");
-        ArrayList<Item> items = store.getItems();
-
-        assertEquals(3, items.size());
-        assertItem("Brand2", 20, items.get(0));
-        assertItem("Brand3", 30, items.get(1));
-        assertItem("Brand4", 40, items.get(2));
-    }
-
-    private void assertItem(String name, double price, Item item) {
-        assertEquals(name, item.getName());
-        assertEquals(price, item.getPrice(), 0);
+        User user = new User();
+        store.getItems(user);
+        verify(repository).findAll(user.getCart());
     }
 }

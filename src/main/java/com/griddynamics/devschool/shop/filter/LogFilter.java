@@ -13,9 +13,7 @@ public class LogFilter implements Filter {
     private static String logKey = "sessionId";
 
     @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-
-    }
+    public void init(FilterConfig filterConfig) throws ServletException { }
 
     @Override
     public void doFilter(

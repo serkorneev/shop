@@ -1,10 +1,3 @@
-<%@ page import="com.griddynamics.devschool.shop.User" %>
-<%
-    if (request.getSession().getAttribute("user") instanceof User) {
-        response.setStatus(response.SC_MOVED_TEMPORARILY);
-        response.setHeader("Location", "list.jsp");
-    }
-%>
 <html>
 <head>
     <title>Welcome</title>
@@ -16,8 +9,8 @@
     <div class="jumbotron text-center">
         <h1>Welcome!</h1>
         <span>
-            <a class="btn btn-lg btn-primary" href="list.jsp" role="button">View products</a>
-            <a class="btn btn-lg btn-info" href="registration.jsp" role="button">Registration</a>
+            <a class="btn btn-lg btn-primary" href="list" role="button">View products</a>
+            <a class="btn btn-lg btn-info" href="registration" role="button">Registration</a>
         </span>
     </div>
 </div>

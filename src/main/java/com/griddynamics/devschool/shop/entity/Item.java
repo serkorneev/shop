@@ -1,4 +1,4 @@
-package com.griddynamics.devschool.shop;
+package com.griddynamics.devschool.shop.entity;
 
 import javax.xml.bind.annotation.*;
 

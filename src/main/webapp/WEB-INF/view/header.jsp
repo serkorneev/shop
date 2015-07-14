@@ -1,4 +1,4 @@
-<%@ page import="com.griddynamics.devschool.shop.User" %>
+<%@ page import="com.griddynamics.devschool.shop.entity.User" %>
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -8,12 +8,12 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="index.jsp">My Best Shop</a>
+      <a class="navbar-brand" href="/">My Best Shop</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="<%= request.getServletPath().equals("/list.jsp") ? "active" : "" %>"><a href="list.jsp">Products </a></li>
+        <li><a href="list">Products </a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         <% if (request.getSession().getAttribute("user") instanceof User) { %>
@@ -22,11 +22,11 @@
             <%= ((User) request.getSession().getAttribute("user")).getName() %> <span class="caret"></span>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="logout.jsp">Logout</a></li>
+            <li><a href="logout">Logout</a></li>
           </ul>
         </li>
         <% } else { %>
-        <li class="<%= request.getServletPath().equals("/registration.jsp") ? "active" : "" %>"><a href="registration.jsp">Registration</a></li>
+        <li><a href="registration">Registration</a></li>
         <% } %>
       </ul>
     </div>

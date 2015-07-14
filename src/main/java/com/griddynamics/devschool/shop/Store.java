@@ -1,80 +1,48 @@
 package com.griddynamics.devschool.shop;
 
+import com.griddynamics.devschool.shop.entity.Item;
+import com.griddynamics.devschool.shop.entity.User;
 import com.griddynamics.devschool.shop.exception.AccessDeniedException;
 import com.griddynamics.devschool.shop.exception.NotFoundException;
+import com.griddynamics.devschool.shop.repository.ItemRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
 
 /**
  * @author Sergey Korneev
  */
-@XmlRootElement
-@XmlAccessorType(XmlAccessType.NONE)
+@Service("store")
 public class Store {
     private static final Logger logger = LoggerFactory.getLogger(Store.class);
-    private ArrayList<Item> items = new ArrayList<>();
-    private User user;
+    private ItemRepository repository;
 
-    public Store() {
-        this(null);
+    @Autowired
+    public void setRepository(ItemRepository repository) {
+        this.repository = repository;
     }
 
-    public Store(User user) {
-        this.user = user;
-        items.add(createItem("Brand1", 10));
-        items.add(createItem("Brand2", 20));
-        items.add(createItem("Brand3", 30));
-        items.add(createItem("Brand4", 40));
-    }
-
-    private Item createItem(String name, int price) {
-        Item item = new Item();
-        item.setName(name);
-        item.setPrice(price);
-
-        return item;
-    }
-
-    public void buy(String itemName) throws AccessDeniedException, NotFoundException {
+    public void buy(String itemName, User user) throws AccessDeniedException, NotFoundException {
         logger.info("Start buying item {}", itemName);
         if (user == null) {
             logger.warn("Unregistered user tries to buy {}", itemName);
             throw new AccessDeniedException();
         }
 
-        for (Item item: getItems()) {
-            if (item.getName().equals(itemName)) {
-                user.getCart().add(item);
-                logger.info("User {} bought {}.", user.getName(), item.getName());
-                return;
-            }
+        Item item = repository.findByName(itemName);
+        if (!user.getCart().contains(item)) {
+            user.getCart().add(item);
+            logger.info("User {} bought {}.", user.getName(), item.getName());
+            return;
         }
 
-        logger.info("Item {} not found.", itemName);
         throw new NotFoundException();
     }
 
-    @XmlElement(name = "item", type = Item.class)
-    @XmlElementWrapper(name = "items")
-    public ArrayList<Item> getItems() {
-        if (user == null) {
-            return items;
-        }
-
-        logger.debug("User bought {}", user.getCart());
-        ArrayList<Item> notBoughtItems = new ArrayList<>();
-        for (Item item: items) {
-            if (user.getCart().contains(item)) {
-                continue;
-            }
-            notBoughtItems.add(item);
-        }
-
-        logger.debug("User can buy {}", notBoughtItems);
-
-        return notBoughtItems;
+    public ArrayList<Item> getItems(User user) {
+        return repository.findAll(user == null ? null : user.getCart());
     }
 }

@@ -1,4 +1,4 @@
-package com.griddynamics.devschool.shop;
+package com.griddynamics.devschool.shop.entity;
 
 import java.util.ArrayList;
 
@@ -22,6 +22,13 @@ public class User {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    /**
+     * @return String
+     */
+    public String getEmail() {
+        return email;
     }
 
     /**

@@ -19,12 +19,8 @@ import java.io.IOException;
  */
 @Controller
 public class DefaultController {
-    private Store store;
-
     @Autowired
-    public void setStore(Store store) {
-        this.store = store;
-    }
+    private Store store;
 
     @RequestMapping(value = "/")
     public String index() {
@@ -82,7 +78,7 @@ public class DefaultController {
 
     @RequestMapping(value = "/registration", method = RequestMethod.POST)
     public String registration(@ModelAttribute("userForm") User user, HttpServletRequest request) {
-        request.getSession().setAttribute("user", user);
+        request.getSession().setAttribute("user", store.registration(user));
         return "redirect:list";
     }
 

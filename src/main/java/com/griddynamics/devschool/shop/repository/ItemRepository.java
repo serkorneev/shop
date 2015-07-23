@@ -1,59 +1,16 @@
 package com.griddynamics.devschool.shop.repository;
 
 import com.griddynamics.devschool.shop.entity.Item;
-import com.griddynamics.devschool.shop.exception.NotFoundException;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 
-import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Sergey Korneev
  */
-@Repository("itemRepository")
-public class ItemRepository {
-    private ArrayList<Item> items = new ArrayList<>();
-
-    public ItemRepository() {
-        items.add(createItem("Brand1", 10));
-        items.add(createItem("Brand2", 20));
-        items.add(createItem("Brand3", 30));
-        items.add(createItem("Brand4", 40));
-    }
-
-    private Item createItem(String name, int price) {
-        Item item = new Item();
-        item.setName(name);
-        item.setPrice(price);
-
-        return item;
-    }
-
-    public ArrayList<Item> findAll() {
-        return this.items;
-    }
-
-    public ArrayList<Item> findAll(ArrayList<Item> excludedItems) {
-        if (excludedItems == null) {
-            return this.findAll();
-        }
-        ArrayList<Item> includedItems = new ArrayList<>();
-        for (Item item: items) {
-            if (excludedItems.contains(item)) {
-                continue;
-            }
-            includedItems.add(item);
-        }
-
-        return includedItems;
-    }
-
-    public Item findByName(String name) throws NotFoundException {
-        for (Item item: items) {
-            if (item.getName().equals(name)) {
-                return item;
-            }
-        }
-
-        throw new NotFoundException();
-    }
+public interface ItemRepository extends CrudRepository<Item, Integer> {
+    public Item findOneByName(String name);
+    @Query(value = "SELECT i.* FROM item i LEFT JOIN user_item ui ON ui.item_id = i.id AND ui.user_id = ?1 WHERE ui.user_id IS NULL", nativeQuery = true)
+    public Collection<Item> findAllForBuying(Integer userId);
 }

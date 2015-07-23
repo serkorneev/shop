@@ -1,0 +1,22 @@
+[
+    {
+        "_class" : "com.griddynamics.devschool.shop.entity.Item",
+        "name" : "Brand1",
+        "price" : 10
+    },
+    {
+        "_class" : "com.griddynamics.devschool.shop.entity.Item",
+        "name" : "Brand2",
+        "price" : 20
+    },
+    {
+        "_class" : "com.griddynamics.devschool.shop.entity.Item",
+        "name" : "Brand3",
+        "price" : 30
+    },
+    {
+        "_class" : "com.griddynamics.devschool.shop.entity.Item",
+        "name" : "Brand4",
+        "price" : 40
+    }
+]

@@ -2,6 +2,7 @@ package com.griddynamics.devschool.shop.entity;
 
 import javax.xml.bind.annotation.*;
 import java.util.ArrayList;
+import java.util.Collection;
 
 /**
  * @author Sergey Korneev
@@ -9,14 +10,14 @@ import java.util.ArrayList;
 @XmlRootElement(name = "items")
 @XmlAccessorType(XmlAccessType.NONE)
 public class Items {
-    private ArrayList<Item> items;
+    private Collection<Item> items;
 
-    public void setItems(ArrayList<Item> items) {
+    public void setItems(Collection<Item> items) {
         this.items = items;
     }
 
     @XmlElement(name = "item", type = Item.class)
-    public ArrayList<Item> getItems() {
+    public Collection<Item> getItems() {
         return items;
     }
 }

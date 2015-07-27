@@ -11,6 +11,6 @@ import java.util.Collection;
  */
 public interface ItemRepository extends CrudRepository<Item, Integer> {
     public Item findOneByName(String name);
-    @Query(value = "SELECT i.* FROM item i LEFT JOIN user_item ui ON ui.item_id = i.id AND ui.user_id = ?1 WHERE ui.user_id IS NULL", nativeQuery = true)
+    @Query("SELECT i FROM Item i LEFT JOIN i.users u ON u.id = ?1 WHERE u.id IS NULL")
     public Collection<Item> findAllForBuying(Integer userId);
 }

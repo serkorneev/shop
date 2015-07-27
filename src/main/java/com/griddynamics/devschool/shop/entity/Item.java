@@ -2,6 +2,7 @@ package com.griddynamics.devschool.shop.entity;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.*;
+import java.util.Set;
 
 /**
  * @author Sergey Korneev
@@ -24,6 +25,9 @@ public class Item {
     @Column
     @XmlElement(name = "price")
     private int price;
+
+    @ManyToMany(mappedBy = "items")
+    private Set<User> users;
 
     public Integer getId() {
         return this.id;

@@ -29,9 +29,8 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/test-context.xml"})
+@ContextConfiguration(locations = {"/context/controller-config.xml", "/context/mock-repository-config.xml"})
 public class DefaultControllerTest {
-
     @Autowired
     private Store store;
 

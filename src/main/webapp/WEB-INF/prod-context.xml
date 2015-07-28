@@ -28,6 +28,7 @@
     <aop:aspectj-autoproxy />
     <jpa:repositories base-package="com.griddynamics.devschool.shop.repository"/>
     <repository:jackson2-populator locations="classpath:items.json" />
+    <import resource="classpath:springmvc-resteasy.xml" />
 
     <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
           destroy-method="close">

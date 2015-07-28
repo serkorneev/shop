@@ -1,18 +1,17 @@
 package com.griddynamics.devschool.shop.controller;
 
 import com.griddynamics.devschool.shop.Store;
-import com.griddynamics.devschool.shop.entity.Items;
 import com.griddynamics.devschool.shop.entity.User;
 import com.griddynamics.devschool.shop.exception.AccessDeniedException;
 import com.griddynamics.devschool.shop.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-import javax.servlet.http.*;
-import javax.xml.bind.*;
-import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @author Sergey Korneev
@@ -44,24 +43,6 @@ public class DefaultController {
     public String list(Model model, HttpServletRequest request) {
         model.addAttribute("items", store.getItems(getUser(request)));
         return "list";
-    }
-
-    @RequestMapping("/items.xml")
-    public void itemsXML(HttpServletRequest request, HttpServletResponse response) {
-        response.setContentType("text/xml");
-
-        Items items = new Items();
-        items.setItems(store.getItems(getUser(request)));
-        try {
-            JAXBContext context = JAXBContext.newInstance(Items.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            marshaller.marshal(items, response.getWriter());
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (JAXBException e) {
-            e.printStackTrace();
-        }
     }
 
     @RequestMapping("/logout")

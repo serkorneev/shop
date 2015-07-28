@@ -1,7 +1,11 @@
 package com.griddynamics.devschool.shop.entity;
 
 import javax.persistence.*;
-import java.util.*;
+import javax.ws.rs.FormParam;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author Sergey Korneev
@@ -14,7 +18,10 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @FormParam("name")
     private String name;
+
+    @FormParam("email")
     private String email;
 
     @ManyToMany(fetch = FetchType.EAGER)
